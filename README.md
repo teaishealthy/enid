@@ -1,6 +1,6 @@
 # enid
 
-[![ISC License](https://img.shields.io/github/license/teaishealthy/enid?logoColor=%23ff0041&style=flat-square)](https://github.com/teaishealthy/enid/blob/master/LICENSE)
+[![ISC License](https://img.shields.io/github/license/teaishealthy/enid?color=ff006e&style=flat-square)](https://github.com/teaishealthy/enid/blob/master/LICENSE)
 [![Yarn](https://img.shields.io/badge/manager-yarn-%23ff006e?style=flat-square)](https://yarnpkg.com/)
 [![Vite](https://img.shields.io/badge/bundler-vite-%23f00093?style=flat-square)](https://vitejs.dev/)
 [![React](https://img.shields.io/badge/framework-react-%23d000b9?style=flat-square)](https://reactjs.org/)
