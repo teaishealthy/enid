@@ -1,4 +1,4 @@
-import { FileData } from 'eludris-api-types/effis';
+import { type FileData } from 'eludris-api-types/effis';
 
 export default async function uploadFile(
     effis: string,
@@ -16,5 +16,5 @@ export default async function uploadFile(
         throw new Error(response.statusText);
     }
 
-    return response.json();
+    return await response.json();
 }

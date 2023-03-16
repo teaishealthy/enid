@@ -1,28 +1,26 @@
+import { usernameState } from './app';
 import {
     Box,
     Button,
     Container,
+    Flex,
     Heading,
-    IconButton,
     Input,
     Link,
-    Spacer,
     Stack,
     Text,
-    color,
+    Tooltip,
     useColorMode,
-    useColorModeValue,
 } from '@chakra-ui/react';
-import { Icon, InlineIcon } from '@iconify/react';
+import { Icon } from '@iconify/react';
 import { useRef, useState } from 'react';
+import { useRecoilState } from 'recoil';
 
-export default function Setup({
-    setUsername,
-}: {
-    setUsername: (username: string) => void;
-}) {
+export default function Setup() {
+    const [, setUsername] = useRecoilState(usernameState);
+    const [maybeUsername, setMaybeUsername] = useState<string>('');
     const ref = useRef<HTMLInputElement>(null);
-    const { colorMode, toggleColorMode } = useColorMode();
+    const { toggleColorMode } = useColorMode();
     return (
         <>
             <Container maxW={'3xl'}>
@@ -74,9 +72,8 @@ export default function Setup({
                         the priority is for it to be truly yours.
                     </Text>
                     <Stack width={'fit-content'}>
-                        <Stack
+                        <Flex
                             direction={'row'}
-                            spacing={3}
                             align={'center'}
                             alignSelf={'center'}
                             position={'relative'}
@@ -84,36 +81,48 @@ export default function Setup({
                             <Input
                                 ref={ref}
                                 placeholder={'Username'}
-                                rounded={'2xl'}
+                                borderRadius={'10px 0 0 10px'}
                                 onKeyDown={(event) => {
-                                    if (event.key === 'Enter') {
+                                    if (
+                                        event.key === 'Enter' &&
+                                        maybeUsername.length >= 3
+                                    ) {
                                         setUsername(ref.current!.value);
                                     }
                                 }}
+                                onChange={(event) => {
+                                    setMaybeUsername(event.target.value);
+                                }}
                             ></Input>
-                            <Button
-                                colorScheme={'purple'}
-                                bg={'purple.500'}
-                                rounded={'2xl'}
-                                color={'white'}
-                                px={14}
-                                rightIcon={<Icon icon={'bx:lock-alt'} />}
-                                _hover={{
-                                    bg: 'purple.600',
-                                }}
-                                onClick={() => {
-                                    setUsername(ref.current!.value);
-                                }}
+                            <Tooltip
+                                isDisabled={maybeUsername.length >= 3}
+                                label={
+                                    'Username must be at least 3 characters long'
+                                }
+                                aria-label="A tooltip"
+                                placement="top"
                             >
-                                Secure your chats
-                            </Button>
-                        </Stack>
-                        <Text
-                            as={'span'}
-                            color={'gray.500'}
-                            fontSize="xs"
-                            textAlign={'right'}
-                        >
+                                <Button
+                                    isDisabled={maybeUsername.length < 3}
+                                    colorScheme={'purple'}
+                                    bg={'purple.500'}
+                                    rounded={'none'}
+                                    color={'white'}
+                                    borderRadius={'0 10px 10px 0'}
+                                    px={14}
+                                    rightIcon={<Icon icon={'bx:lock-alt'} />}
+                                    _hover={{
+                                        bg: 'purple.600',
+                                    }}
+                                    onClick={() => {
+                                        setUsername(ref.current!.value);
+                                    }}
+                                >
+                                    Secure your chats
+                                </Button>
+                            </Tooltip>
+                        </Flex>
+                        <Text as={'span'} color={'gray.500'} fontSize="xs">
                             You will connect to the{' '}
                             <Link color={'teal.500'} href="https://eludris.gay">
                                 main
