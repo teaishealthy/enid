@@ -1,4 +1,3 @@
-import { UploadedFile } from '../pages/chat';
 import {
     Flex,
     IconButton,
@@ -14,7 +13,7 @@ export default function Attachment({
     file,
     onRemove,
 }: {
-    file: UploadedFile;
+    file: File;
     onRemove: () => void;
 }): JSX.Element {
     const moreElevatedBackground = useColorModeValue('gray.200', '#1d2430');

@@ -1,6 +1,5 @@
 import uploadFile from '../api/effis';
 import { usernameState } from '../pages/app';
-import { UploadedFile } from '../pages/chat';
 import Attachment from './attachment';
 import {
     Divider,
@@ -13,16 +12,25 @@ import { Icon } from '@iconify/react';
 import { useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
-function createMessage(
+async function createMessage(
     textarea: HTMLTextAreaElement | null,
-    attachments: UploadedFile[],
+    attachments: File[],
     username: string,
 ) {
     if (textarea === null) return;
 
     let content = textarea.value;
     if (attachments.length > 0) {
-        content += '\n' + attachments.map((file) => file.url).join('\n');
+        const uploadedFiles = await Promise.all(
+            attachments.map((file) =>
+                uploadFile('https://cdn.eludris.gay', file),
+            ),
+        );
+        content +=
+            '\n' +
+            uploadedFiles
+                .map((file) => `https://cdn.eludris.gay/${file.id}`)
+                .join('\n');
     }
     fetch('https://api.eludris.gay/messages', {
         method: 'POST',
@@ -38,7 +46,7 @@ function createMessage(
 export default function ChatInput() {
     const contentRef = useRef<HTMLTextAreaElement>(null);
 
-    const [attachments, setAttachments] = useState<UploadedFile[]>([]);
+    const [attachments, setAttachments] = useState<File[]>([]);
     const username = useRecoilValue(usernameState)!;
     const elevatedBackground = useColorModeValue('gray.100', 'gray.750');
 
@@ -65,13 +73,12 @@ export default function ChatInput() {
                     >
                         {attachments.map((file) => (
                             <Attachment
-                                key={file.url}
+                                key={file.name + file.size} // Best we can do
                                 file={file}
                                 onRemove={() =>
                                     setAttachments((attachments) =>
                                         attachments.filter(
-                                            (attachment) =>
-                                                attachment.url !== file.url,
+                                            (attachment) => attachment !== file,
                                         ),
                                     )
                                 }
@@ -100,21 +107,10 @@ export default function ChatInput() {
                                 return;
                             }
 
-                            uploadFile('https://cdn.eludris.gay', file)
-                                .then((data) => {
-                                    if (contentRef.current === null) return;
-                                    setAttachments((attachments) =>
-                                        attachments.concat({
-                                            url: `https://cdn.eludris.gay/${data.id}`,
-                                            name: file.name,
-                                        }),
-                                    );
-                                    input.remove();
-                                })
-                                .catch((error) => {
-                                    console.error(error);
-                                    input.remove();
-                                });
+                            setAttachments((attachments) => [
+                                ...attachments,
+                                file,
+                            ]);
                         };
 
                         input.click();
