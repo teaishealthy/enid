@@ -1,5 +1,5 @@
-import App from './pages/app';
 import './main.css';
+import App from './pages/app';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
