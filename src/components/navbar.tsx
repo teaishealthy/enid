@@ -9,15 +9,16 @@ import {
     useColorMode,
     useColorModeValue,
 } from '@chakra-ui/react';
-import { useRecoilState } from 'recoil';
+import React from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
-export default function NavBar({ ws }: { ws: WebSocket }): JSX.Element {
+function _NavBar({ ws }: { ws: WebSocket }): JSX.Element {
     const { toggleColorMode } = useColorMode();
 
     const toggleColorModeIcon = useColorModeValue('🌞', '🌚');
     const elevatedBackground = useColorModeValue('gray.100', 'gray.750');
     const [username, setUsername] = useRecoilState(usernameState);
-    const [, setMessages] = useRecoilState(messagesState);
+    const setMessages = useSetRecoilState(messagesState);
 
     return (
         <Flex
@@ -74,3 +75,6 @@ export default function NavBar({ ws }: { ws: WebSocket }): JSX.Element {
         </Flex>
     );
 }
+
+const NavBar = React.memo(_NavBar);
+export default NavBar;

@@ -17,9 +17,6 @@ import { useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 export default function Setup() {
-    const [, setUsername] = useRecoilState(usernameState);
-    const [maybeUsername, setMaybeUsername] = useState<string>('');
-    const ref = useRef<HTMLInputElement>(null);
     const { toggleColorMode } = useColorMode();
     return (
         <>
@@ -72,56 +69,7 @@ export default function Setup() {
                         the priority is for it to be truly yours.
                     </Text>
                     <Stack width={'fit-content'}>
-                        <Flex
-                            direction={'row'}
-                            align={'center'}
-                            alignSelf={'center'}
-                            position={'relative'}
-                        >
-                            <Input
-                                ref={ref}
-                                placeholder={'Username'}
-                                borderRadius={'10px 0 0 10px'}
-                                onKeyDown={(event) => {
-                                    if (
-                                        event.key === 'Enter' &&
-                                        maybeUsername.length >= 3
-                                    ) {
-                                        setUsername(ref.current!.value);
-                                    }
-                                }}
-                                onChange={(event) => {
-                                    setMaybeUsername(event.target.value);
-                                }}
-                            ></Input>
-                            <Tooltip
-                                isDisabled={maybeUsername.length >= 3}
-                                label={
-                                    'Username must be at least 3 characters long'
-                                }
-                                aria-label="A tooltip"
-                                placement="top"
-                            >
-                                <Button
-                                    isDisabled={maybeUsername.length < 3}
-                                    colorScheme={'purple'}
-                                    bg={'purple.500'}
-                                    rounded={'none'}
-                                    color={'white'}
-                                    borderRadius={'0 10px 10px 0'}
-                                    px={14}
-                                    rightIcon={<Icon icon={'bx:lock-alt'} />}
-                                    _hover={{
-                                        bg: 'purple.600',
-                                    }}
-                                    onClick={() => {
-                                        setUsername(ref.current!.value);
-                                    }}
-                                >
-                                    Secure your chats
-                                </Button>
-                            </Tooltip>
-                        </Flex>
+                        <UsernameInput />
                         <Text as={'span'} color={'gray.500'} fontSize="xs">
                             You will connect to the{' '}
                             <Link color={'teal.500'} href="https://eludris.gay">
@@ -133,5 +81,59 @@ export default function Setup() {
                 </Stack>
             </Container>
         </>
+    );
+}
+
+function UsernameInput() {
+    const [, setUsername] = useRecoilState(usernameState);
+    const [maybeUsername, setMaybeUsername] = useState<string>('');
+    const ref = useRef<HTMLInputElement>(null);
+
+    return (
+        <Flex
+            direction={'row'}
+            align={'center'}
+            alignSelf={'center'}
+            position={'relative'}
+        >
+            <Input
+                ref={ref}
+                placeholder={'Username'}
+                borderRadius={'10px 0 0 10px'}
+                onKeyDown={(event) => {
+                    if (event.key === 'Enter' && maybeUsername.length >= 3) {
+                        setUsername(ref.current!.value);
+                    }
+                }}
+                onChange={(event) => {
+                    setMaybeUsername(event.target.value);
+                }}
+            ></Input>
+            <Tooltip
+                isDisabled={maybeUsername.length >= 3}
+                label={'Username must be at least 3 characters long'}
+                aria-label="A tooltip"
+                placement="top"
+            >
+                <Button
+                    isDisabled={maybeUsername.length < 3}
+                    colorScheme={'purple'}
+                    bg={'purple.500'}
+                    rounded={'none'}
+                    color={'white'}
+                    borderRadius={'0 10px 10px 0'}
+                    px={14}
+                    rightIcon={<Icon icon={'bx:lock-alt'} />}
+                    _hover={{
+                        bg: 'purple.600',
+                    }}
+                    onClick={() => {
+                        setUsername(ref.current!.value);
+                    }}
+                >
+                    Secure your chats
+                </Button>
+            </Tooltip>
+        </Flex>
     );
 }

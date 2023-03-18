@@ -9,7 +9,7 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 async function createMessage(
@@ -43,7 +43,7 @@ async function createMessage(
     textarea.rows = 1;
 }
 
-export default function ChatInput() {
+function _ChatInput() {
     const contentRef = useRef<HTMLTextAreaElement>(null);
 
     const [attachments, setAttachments] = useState<File[]>([]);
@@ -148,7 +148,9 @@ export default function ChatInput() {
                             attachments,
                             username,
                         );
-                        setAttachments([]);
+                        if (attachments.length > 0) {
+                            setAttachments([]);
+                        }
                     }}
                     onChange={() => {
                         if (contentRef.current === null) return;
@@ -168,7 +170,9 @@ export default function ChatInput() {
                             attachments,
                             username,
                         );
-                        setAttachments([]);
+                        if (attachments.length > 0) {
+                            setAttachments([]);
+                        }
                     }}
                     icon={<Icon icon="mdi:send" />}
                 ></IconButton>
@@ -176,3 +180,6 @@ export default function ChatInput() {
         </Flex>
     );
 }
+
+const ChatInput = React.memo(_ChatInput);
+export default ChatInput;
