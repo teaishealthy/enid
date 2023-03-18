@@ -1,5 +1,21 @@
-import { Flex, Text, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Link, Text, useColorModeValue } from '@chakra-ui/react';
+import Linkify from 'linkify-react';
 import React, { useEffect, useRef } from 'react';
+
+const renderLink = ({
+    attributes,
+    content,
+}: {
+    attributes: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+    content: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+}) => {
+    const { href, ...props } = attributes;
+    return (
+        <Link href={href} color="teal.500" {...props}>
+            {content}
+        </Link>
+    );
+};
 
 function _Message({
     content,
@@ -40,7 +56,9 @@ function _Message({
             {!previousMessageHasSameAuthor && (
                 <Text fontWeight="bold">{author}</Text>
             )}
-            <Text whiteSpace="pre-line">{content}</Text>
+            <Text whiteSpace="pre-line">
+                <Linkify options={{ render: renderLink }}>{content}</Linkify>
+            </Text>
         </Flex>
     );
 }
