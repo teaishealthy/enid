@@ -26,7 +26,7 @@ function _Connector() {
 
         const newWs = new WebSocket('wss://ws.eludris.gay');
         newWs.onopen = () => {
-            console.log('Connected to Gateway :D');
+            console.log('Connected to Gateway');
             newWs.send(JSON.stringify({ op: 'PING' }));
             setWsState(newWs.readyState);
         };
@@ -40,10 +40,11 @@ function _Connector() {
             );
         });
 
-        newWs.onclose = () => {
+        newWs.onclose = (event) => {
             setWsState(newWs.readyState);
             console.log(
-                'Gateway disconnected. If this was unexpected, reconnecting soon',
+                `Gateway closed with code '${event.code}' and reason '${event.reason}'` +
+                    '\nReconnecting in one second if this was not intentional',
             );
             setTimeout(() => {
                 setWs(null);
