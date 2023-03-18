@@ -14,11 +14,17 @@ export default function Messages() {
             overflowY="scroll"
             className="no-scrollbar"
         >
-            {messages.map((message) => (
+            {messages.map((message, idx) => (
                 <Message
                     key={message.content + message.author}
                     content={message.content}
                     author={message.author}
+                    previousMessageHasSameAuthor={
+                        messages[idx - 1]?.author === message.author
+                    }
+                    nextMessageHasSameAuthor={
+                        messages[idx + 1]?.author === message.author
+                    }
                 />
             ))}
         </Flex>
