@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="128.0px"
+   height="128.0px"
+   viewBox="0 0 128.0 128.0"
+   version="1.1"
+   id="SVGRoot"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2444">
+    <linearGradient
+       xlink:href="#linearGradient946"
+       id="linearGradient948"
+       x1="300.94614"
+       y1="237.40344"
+       x2="517.96069"
+       y2="454.418"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.50087374,0,0,0.50087374,-136.26082,-104.68313)" />
+    <linearGradient
+       id="linearGradient946">
+      <stop
+         style="stop-color:#fb75a2;stop-opacity:1;"
+         offset="0"
+         id="stop942" />
+      <stop
+         style="stop-color:#7576fb;stop-opacity:1;"
+         offset="1"
+         id="stop944" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient938"
+       id="linearGradient940"
+       x1="300.94614"
+       y1="237.40344"
+       x2="517.96069"
+       y2="454.418"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.50087374,0,0,0.50087374,-136.26082,-104.68313)" />
+    <linearGradient
+       id="linearGradient938">
+      <stop
+         style="stop-color:#f6f5f4;stop-opacity:1;"
+         offset="0"
+         id="stop934" />
+      <stop
+         style="stop-color:#f6f5f4;stop-opacity:0;"
+         offset="1"
+         id="stop936" />
+    </linearGradient>
+  </defs>
+  <g
+     id="layer1">
+    <path
+       style="fill:url(#linearGradient948);fill-opacity:1;stroke:url(#linearGradient940);stroke-width:0.500874"
+       d="M 56.399207,127.34455 C 30.029595,124.22385 8.0481445,104.67159 1.8213523,78.79813 -5.9971665,46.310773 12.379956,13.400374 44.127082,3.0355334 51.141976,0.74529827 55.60111,0.04963474 63.410718,0.02710544 83.888345,-0.03196261 101.93155,8.6454395 114.23338,24.468936 c 5.80097,7.461591 9.26582,14.408905 11.5481,23.154912 2.02999,7.779356 2.32205,13.442465 2.1508,41.708237 -0.15883,26.220225 -0.16258,26.303215 -1.31389,28.846265 -1.44497,3.1919 -5.08748,6.81621 -8.36199,8.32027 l -2.50437,1.15031 -27.798498,0.0701 c -15.289171,0.0385 -29.488616,-0.12996 -31.554325,-0.37443 z"
+       id="path322" />
+  </g>
+</svg>
