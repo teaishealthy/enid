@@ -56,7 +56,7 @@ function _Connector() {
         };
         setWs(newWs);
 
-        const interval = setInterval(() => {
+        const interval = window.setInterval(() => {
             newWs.send(JSON.stringify({ op: 'PING' }));
         }, 45000);
         setIntervalValue(interval);
