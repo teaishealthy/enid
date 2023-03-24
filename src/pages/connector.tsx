@@ -1,7 +1,7 @@
 // Connector; basically a small screen to show while connecting to the server
 import Chat from './chat';
 import { Center, CircularProgress } from '@chakra-ui/react';
-import type { Message } from 'eludris-api-types/oprish';
+import { InstanceInfo, Message } from 'eludris-api-types/oprish';
 import { IncomingMessage } from 'eludris-api-types/pandemonium';
 import { StrictMode, memo, useEffect, useState } from 'react';
 import { atom, useRecoilState } from 'recoil';
@@ -11,8 +11,25 @@ export const messagesState = atom<Message[]>({
     default: [],
 });
 
+export const instanceInfoState = atom<InstanceInfo | null>({
+    key: 'instanceInfo',
+    default: null,
+});
+
 function _Connector() {
     const [messages, setMessages] = useRecoilState(messagesState);
+
+    const [instanceInfo, setInstanceInfo] = useRecoilState(instanceInfoState);
+    useEffect(() => {
+        console.log('Fetching instance info');
+        async function getData() {
+            const request = await fetch('https://api.eludris.gay');
+            const data = await request.json();
+            setInstanceInfo(data);
+            console.log(`Fetched instance info from '${request.url}'`);
+        }
+        getData();
+    }, [setInstanceInfo]);
 
     const [ws, setWs] = useState<WebSocket | null>(null);
     const [interval, setIntervalValue] = useState<number | null>(null);
@@ -21,12 +38,14 @@ function _Connector() {
     );
 
     useEffect(() => {
-        if (ws !== null) return;
+        if (ws !== null || instanceInfo === null) return;
         console.log('Connecting to Gateway');
 
-        const newWs = new WebSocket('wss://ws.eludris.gay');
+        const newWs = new WebSocket(instanceInfo.pandemonium_url);
         newWs.onopen = () => {
-            console.log('Connected to Gateway');
+            console.log(
+                `Connected to Gateway at '${instanceInfo.pandemonium_url}'`,
+            );
             newWs.send(JSON.stringify({ op: 'PING' }));
             setWsState(newWs.readyState);
         };
@@ -60,7 +79,7 @@ function _Connector() {
             newWs.send(JSON.stringify({ op: 'PING' }));
         }, 45000);
         setIntervalValue(interval);
-    }, [ws, messages, setMessages]);
+    }, [ws, messages, setMessages, instanceInfo]);
 
     useEffect(() => {
         return () => {
@@ -75,7 +94,7 @@ function _Connector() {
         };
     }, [ws, interval]);
 
-    if (ws?.readyState !== WebSocket.OPEN) {
+    if (ws?.readyState !== WebSocket.OPEN || instanceInfo === null) {
         return (
             <Center h="100%">
                 <CircularProgress

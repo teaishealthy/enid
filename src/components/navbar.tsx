@@ -1,19 +1,22 @@
 import { usernameState } from '../pages/app';
-import { messagesState } from '../pages/connector';
+import { instanceInfoState, messagesState } from '../pages/connector';
 import Emoji from './emoji';
 import {
     Flex,
     IconButton,
     Link,
     Text,
+    Tooltip,
     useColorMode,
     useColorModeValue,
 } from '@chakra-ui/react';
 import React from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 function _NavBar({ ws }: { ws: WebSocket }): JSX.Element {
     const { toggleColorMode } = useColorMode();
+
+    const instanceInfo = useRecoilValue(instanceInfoState)!;
 
     const toggleColorModeIcon = useColorModeValue('🌞', '🌚');
     const elevatedBackground = useColorModeValue('gray.100', 'gray.750');
@@ -34,11 +37,17 @@ function _NavBar({ ws }: { ws: WebSocket }): JSX.Element {
                     Eludris
                 </Text>
                 <Text fontSize="md">
-                    Connected to the{' '}
-                    <Link color={'teal.500'} href="https://eludris.gay">
-                        main
-                    </Link>{' '}
-                    instance as{' '}
+                    Connected to{' '}
+                    <Tooltip
+                        label={instanceInfo.description}
+                        hasArrow
+                        placement="bottom-end"
+                    >
+                        <Link color={'teal.500'} href={instanceInfo.oprish_url}>
+                            {instanceInfo.instance_name}
+                        </Link>
+                    </Tooltip>{' '}
+                    as{' '}
                     <Text color={'teal.500'} as="span">
                         {username}
                     </Text>

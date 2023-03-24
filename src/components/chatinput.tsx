@@ -1,5 +1,6 @@
 import uploadFile from '../api/effis';
 import { usernameState } from '../pages/app';
+import { instanceInfoState } from '../pages/connector';
 import Attachment from './attachment';
 import {
     Divider,
@@ -9,10 +10,12 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
+import { InstanceInfo } from 'eludris-api-types/oprish';
 import React, { useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 async function createMessage(
+    instanceInfo: InstanceInfo,
     textarea: HTMLTextAreaElement | null,
     attachments: File[],
     username: string,
@@ -22,17 +25,15 @@ async function createMessage(
     let content = textarea.value;
     if (attachments.length > 0) {
         const uploadedFiles = await Promise.all(
-            attachments.map((file) =>
-                uploadFile('https://cdn.eludris.gay', file),
-            ),
+            attachments.map((file) => uploadFile(instanceInfo.effis_url, file)),
         );
         content +=
             '\n' +
             uploadedFiles
-                .map((file) => `https://cdn.eludris.gay/${file.id}`)
+                .map((file) => `${instanceInfo.effis_url}/${file.id}`)
                 .join('\n');
     }
-    fetch('https://api.eludris.gay/messages', {
+    fetch(`${instanceInfo.oprish_url}/messages`, {
         method: 'POST',
         body: JSON.stringify({
             content,
@@ -45,6 +46,8 @@ async function createMessage(
 
 function _ChatInput() {
     const contentRef = useRef<HTMLTextAreaElement>(null);
+
+    const instanceInfo = useRecoilValue(instanceInfoState)!;
 
     const [attachments, setAttachments] = useState<File[]>([]);
     const username = useRecoilValue(usernameState)!;
@@ -144,6 +147,7 @@ function _ChatInput() {
                         }
 
                         createMessage(
+                            instanceInfo,
                             contentRef.current,
                             attachments,
                             username,
@@ -166,6 +170,7 @@ function _ChatInput() {
                     aria-label="send"
                     onClick={() => {
                         createMessage(
+                            instanceInfo,
                             contentRef.current,
                             attachments,
                             username,
