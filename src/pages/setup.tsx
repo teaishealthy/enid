@@ -101,7 +101,7 @@ function UsernameInput() {
                 placeholder={'Username'}
                 borderRadius={'10px 0 0 10px'}
                 onKeyDown={(event) => {
-                    if (event.key === 'Enter' && maybeUsername.length >= 3) {
+                    if (event.key === 'Enter' && maybeUsername.length >= 2) {
                         setUsername(ref.current!.value);
                     }
                 }}
@@ -110,13 +110,13 @@ function UsernameInput() {
                 }}
             ></Input>
             <Tooltip
-                isDisabled={maybeUsername.length >= 3}
-                label={'Username must be at least 3 characters long'}
+                isDisabled={maybeUsername.length >= 2}
+                label={'Username must be at least 2 characters long'}
                 aria-label="A tooltip"
                 placement="top"
             >
                 <Button
-                    isDisabled={maybeUsername.length < 3}
+                    isDisabled={maybeUsername.length < 2}
                     colorScheme={'purple'}
                     bg={'purple.500'}
                     rounded={'none'}
