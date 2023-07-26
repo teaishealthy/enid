@@ -15,7 +15,7 @@ function App() {
       : 'linear-gradient(to top, hsl(var(--background)), rgb(0 0 0 / 0%)), url(https://source.unsplash.com/u27Rrbs9Dwc/2400x1600)';
   return (
     <div>
-      <div className="sticky top-0 z-50 flex h-16 items-center justify-between bg-inherit px-72">
+      <div className="sticky top-0 z-50 flex h-16 items-center justify-between bg-background px-9">
         <span className="text-2xl font-bold">Enid</span>
         <Button
           className="aspect-square rounded-full"
@@ -25,18 +25,21 @@ function App() {
           {theme === 'light' ? '🌙' : '☀️'}
         </Button>
       </div>
+      {/* display behind all content  */}
       <div
-        className="flex h-[calc(100vh-9rem)] w-full flex-col items-center bg-cover bg-center bg-no-repeat pt-24"
+        className="flex w-full flex-col items-center bg-cover bg-center bg-no-repeat pt-24 "
         style={{
           backgroundImage: image,
         }}
       >
-        <h1 className="text-5xl font-extrabold">Ready for freedom?</h1>
-        <h2 className="mt-5 text-3xl font-medium">
+        <h1 className="text-center text-5xl font-extrabold">
+          Ready for freedom?
+        </h1>
+        <h2 className="mt-5 text-center text-3xl font-medium">
           Enid is built for you. And only you.
         </h2>
-        <div className="mt-28 flex items-center justify-center gap-10">
-          <div className="flex min-h-full w-72 flex-col  items-center gap-4 text-center">
+        <div className="mb-10 mt-28 flex flex-col flex-wrap items-center justify-center gap-10 lg:flex-row">
+          <div className="flex min-h-full w-72 flex-col items-center gap-4  text-center sm:w-[30rem] lg:w-72">
             <div className="rounded-full bg-background p-4">
               <LucideMessageSquareDashed strokeWidth={2.5} />
             </div>
@@ -48,7 +51,7 @@ function App() {
             </span>
           </div>
 
-          <div className="flex min-h-full w-72 flex-col  items-center gap-4 text-center">
+          <div className="flex min-h-full w-72 flex-col items-center gap-4  text-center sm:w-[30rem] lg:w-72">
             <div className="rounded-full bg-background p-4">
               <LucideLock strokeWidth={2.5} />
             </div>
@@ -58,7 +61,7 @@ function App() {
             </span>
           </div>
 
-          <div className="flex min-h-full w-72 flex-col  items-center gap-4 text-center">
+          <div className="flex min-h-full w-72 flex-col items-center gap-4  text-center sm:w-[30rem] lg:w-72">
             <div className="rounded-full bg-background p-4">
               <LucideWallet strokeWidth={2.5} />
             </div>
