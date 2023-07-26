@@ -1,27 +1,16 @@
-import './main.css';
-import App from './pages/app';
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { RecoilRoot } from 'recoil';
+import React from "react"
+import ReactDOM from "react-dom"
 
-const config = {
-    initialColorMode: 'dark',
-};
+import App from "./App"
+import { ThemeProvider } from "./theme-context"
 
-const theme = extendTheme({
-    config,
-    colors: {
-        gray: {
-            750: 'hsl(219deg 24% 18%)',
-        },
-    },
-});
+import "./index.css"
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-    <ChakraProvider theme={theme}>
-        <RecoilRoot>
-            <App />
-        </RecoilRoot>
-    </ChakraProvider>,
-);
+ReactDOM.render(
+  <React.StrictMode>
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  </React.StrictMode>,
+  document.getElementById("root")
+)
