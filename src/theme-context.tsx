@@ -4,7 +4,7 @@ import {
   useCallback,
   useEffect,
   useState,
-} from "react";
+} from 'react';
 
 export interface IThemeContext {
   theme: string;
@@ -12,8 +12,8 @@ export interface IThemeContext {
 }
 
 export const ThemeContext = createContext<IThemeContext>({
-  theme: "light",
-  toggleTheme: () => console.warn("no theme provider"),
+  theme: 'light',
+  toggleTheme: () => console.warn('no theme provider'),
 } as IThemeContext);
 
 interface ThemeProviderProps {
@@ -21,24 +21,24 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  const [theme, setTheme] = useState<string>("light");
+  const [theme, setTheme] = useState<string>('light');
 
   const toggleTheme = useCallback(() => {
-    const toggleTheme = theme === "light" ? "dark" : "light";
+    const toggleTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(toggleTheme);
-    window.localStorage.setItem("theme", toggleTheme);
+    window.localStorage.setItem('theme', toggleTheme);
   }, [theme]);
 
   useEffect(() => {
-    const localTheme = window.localStorage.getItem("theme");
+    const localTheme = window.localStorage.getItem('theme');
     localTheme && setTheme(localTheme);
   }, []);
 
   useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
     } else {
-      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.remove('dark');
     }
   }, [theme]);
 
@@ -48,4 +48,3 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     </ThemeContext.Provider>
   );
 };
-
