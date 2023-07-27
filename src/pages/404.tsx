@@ -1,7 +1,9 @@
 import { Button } from '@/components/ui/button';
 import SiteLayout from '@/layouts/site';
+import { useNavigate } from 'react-router-dom';
 
 export default function NotFound() {
+  const navigate = useNavigate();
   return (
     <SiteLayout className="h-screen">
       <div className="flex h-[80%] flex-col items-center justify-center">
@@ -10,7 +12,7 @@ export default function NotFound() {
         <Button
           className="mt-5"
           variant="outline"
-          onClick={() => window.history.back()}
+          onClick={() => navigate('/')}
         >
           Go back?
         </Button>
