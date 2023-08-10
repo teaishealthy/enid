@@ -5,9 +5,18 @@ import {
 } from 'lucide-react';
 import { useTheme } from '../lib/use-theme';
 import SiteLayout from '../layouts/site';
+import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 // Button
 export default function LandingPage() {
   const { theme } = useTheme();
+  const navigate = useNavigate();
+
+  if (localStorage.getItem('session')) {
+    navigate('/app', {
+      replace: true,
+    });
+  }
 
   const image =
     theme === 'light'
@@ -20,14 +29,14 @@ export default function LandingPage() {
         backgroundImage: image,
       }}
     >
-      <div className="flex w-full flex-col items-center  pt-24">
+      <div className="flex w-full flex-col items-center pt-24">
         <h1 className="text-center text-5xl font-extrabold">
           Ready for freedom?
         </h1>
         <h2 className="mt-5 text-center text-3xl font-medium">
           Enid is built for you. And only you.
         </h2>
-        <div className="mb-10 mt-28 flex flex-col items-center justify-center gap-10 lg:flex-row">
+        <div className=" mt-28 flex flex-col items-center justify-center gap-10 lg:flex-row">
           <div className="flex min-h-full w-72 flex-col items-center gap-4  text-center sm:w-[30rem] lg:w-72">
             <div className="rounded-full bg-background p-4">
               <LucideMessageSquareDashed strokeWidth={2.5} />
@@ -61,7 +70,15 @@ export default function LandingPage() {
             </span>
           </div>
         </div>
-        <div className="mt-5 flex max-w-3xl flex-col items-center justify-center gap-4 p-10 text-justify ">
+        <Button
+          className="mt-5 rounded-lg px-5 py-6 text-lg"
+          onClick={() => {
+            navigate('/login');
+          }}
+        >
+          Get started
+        </Button>
+        <div className="mt-16 flex max-w-3xl flex-col items-center gap-4 p-10 pt-0 text-justify ">
           <img src="https://eludris.com/das_ding.svg" className="h-24 w-24" />
           <h2 className="text-3xl font-medium ">Enid is built on Eludris.</h2>
           <span className="text-xl text-gray-800 dark:text-gray-200">
