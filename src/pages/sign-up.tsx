@@ -100,7 +100,7 @@ export default function SignUp() {
             </div>
             <hr />
             <p className="!mt-4 text-sm text-muted-foreground">
-              You can later login with either your username or email.
+              You can login later with either your username or email.
             </p>
             <Button className="!mt-4 w-full" type="submit">
               Submit
