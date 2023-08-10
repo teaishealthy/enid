@@ -42,7 +42,7 @@ export default function Login() {
               localStorage.setItem('session', JSON.stringify(sessionCreated));
               navigate('/app');
             })}
-            className=" min-w-1/2 mt-12 w-[30rem] space-y-8"
+            className="mt-12 w-[min(90%,30rem)] space-y-8"
           >
             <FormField
               control={form.control}
