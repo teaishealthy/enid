@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import { ThemeProvider } from './lib/theme-context';
 import { BrowserRouter } from 'react-router-dom';
@@ -8,7 +8,10 @@ import './styles/index.css';
 import './styles/base.css';
 import App from './app';
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container!);
+
+root.render(
   <React.StrictMode>
     <ThemeProvider>
       <BrowserRouter>
@@ -16,5 +19,4 @@ ReactDOM.render(
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>,
-  document.getElementById('root'),
 );
