@@ -12,12 +12,6 @@ export default function LandingPage() {
   const { theme } = useTheme();
   const navigate = useNavigate();
 
-  if (localStorage.getItem('session')) {
-    navigate('/app', {
-      replace: true,
-    });
-  }
-
   const image =
     theme === 'light'
       ? 'linear-gradient(to top, rgb(255 255 255), rgb(0 0 0 / 0%)), url(https://source.unsplash.com/9wg5jCEPBsw/2400x1600)'

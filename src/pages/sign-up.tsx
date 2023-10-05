@@ -45,6 +45,7 @@ export default function SignUp() {
                 password: userCreate.password,
               });
               localStorage.setItem('session', JSON.stringify(session));
+              restClient.authToken = session.token;
               navigate('/app');
             })}
             className="mt-12 w-[min(90%,30rem)] space-y-8"
