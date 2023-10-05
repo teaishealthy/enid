@@ -3,7 +3,6 @@ import { z } from 'zod';
 
 console.log('hello');
 logger.setLevel('silly');
-window.log = logger;
 ROUTES.oprishUrl = 'https://api.eludris.gay';
 
 export const restClient = new RESTClient(ROUTES.oprishUrl);
